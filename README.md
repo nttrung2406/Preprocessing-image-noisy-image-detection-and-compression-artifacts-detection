@@ -6,7 +6,7 @@ a) Noisy image detection using Fast Fourier Transform
 
 b) Compression artifacts detection
 
-- Compression artifacts include
+Compression artifacts include: 
   
 - Blockiness detection: JPEG compression divides an image into 8x8 blocks and applies a discrete cosine transform (DCT) to each block. This can cause blockiness artifacts, which can be detected by analyzing the variance of the image across blocks.
 

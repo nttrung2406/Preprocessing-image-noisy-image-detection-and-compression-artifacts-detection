@@ -4,22 +4,18 @@ def detect_noise(image_path, threshold):
     f_transform_shifted = np.fft.fftshift(f_transform)
     magnitude_spectrum = 20 * np.log(np.abs(f_transform_shifted))
 
-    # Calculate the threshold for noise detection
     rows, cols = image.shape
     crow, ccol = rows // 2, cols // 2
     r = 200  # Radius for the circular region
     mask = np.zeros((rows, cols), np.uint8)
     mask[crow - r:crow + r, ccol - r:ccol + r] = 1
 
-    # Apply the mask to filter out low-frequency components (main content)
     f_transform_shifted *= mask
 
-    # Reconstruct the image after filtering out low-frequency components
     f_ishift = np.fft.ifftshift(f_transform_shifted)
     img_back = np.fft.ifft2(f_ishift)
     img_back = np.abs(img_back)
 
-    # Calculate the noise by subtracting the reconstructed image from the original
     noise = np.abs(image - img_back)
     average_noise = np.mean(noise)
     is_noisy = average_noise > threshold
